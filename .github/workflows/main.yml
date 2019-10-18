@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - releases/*
 
 jobs:
   build:
@@ -8,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: rgmills/create-pull-request-always@v0.3.2
+    - uses: rgmills/pull-request-head-to-base@v0.3.3
       with:
         GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         BASE_BRANCH: 'master'
