@@ -15,4 +15,3 @@ jobs:
       with:
         GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         BASE_BRANCH: 'master'
-        HEAD_BRANCH: 'aheadOfMaster'
