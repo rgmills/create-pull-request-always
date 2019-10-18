@@ -10,7 +10,6 @@ async function run() {
     const sourceBranch = core.getInput('SOURCE_BRANCH');
     let prTitle = core.getInput('PULL_REQUEST_TITLE');
 
-    
     if (!prTitle) {
       prTitle = `[Bot] Automatic PR from ${sourceBranch} => ${pullRequestBranch}`;
     }
