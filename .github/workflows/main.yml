@@ -12,5 +12,5 @@ jobs:
       with:
         GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         BASE_BRANCH: 'master'
-        HEAD_BRANCH: 'aheadOfmaster'
+        HEAD_BRANCH: 'aheadOfMaster'
         PULL_REQUEST_TITLE: 'Test'
