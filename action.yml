@@ -14,6 +14,15 @@ inputs:
   PULL_REQUEST_TITLE:
     description: 'Title for the PR.  By default it''ll be in the form: [Bot] Automatic PR from ${headBranch} => ${baseBranch}'
     default: ''
+  AUTO_MERGE:
+    description: 'Automatically merge if it's determined there are no conflicts'
+    default: 'true'
+  MERGE_ACCESS_TOKEN:
+    description: 'User personal access token to be used if approval is required for merge'
+    default: ''
+  MERGE_CHECK_DELAY_SECONDS:
+    description: 'Built-in delay to wait until attempting the merge.  This is inteded to be to total number of seconds the job should wait before giving up.'
+    default: '20'
 runs:
   using: 'node12'
   main: 'lib/main.js'
