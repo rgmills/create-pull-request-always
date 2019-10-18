@@ -1,0 +1,16 @@
+name: 'create-pull-request-always'
+description: 'Always create a pull request'
+author: 'Robert Mills'
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub access token'
+    default: ''
+  PULL_REQUEST_BRANCH:
+    description: 'Target branch for the pull request'
+    default: 'master'
+  SOURCE_BRANCH:
+    description: 'Source branch for the pull request'
+    default: 'release'
+runs:
+  using: 'node12'
+  main: 'lib/main.js'
