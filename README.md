@@ -1,8 +1,6 @@
 # create-pull-request-always
 
-Change to test
+## Description
 
-Again...
-Again...
+Intended to uses solely to merge a given HEAD branch into a given BASE branch.  This is typically used when you may have a `release` branch and a `dev` or `master` branch for active development.
 
-Test
