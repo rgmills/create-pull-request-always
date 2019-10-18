@@ -16,6 +16,7 @@ async function run() {
 
     const octokit = new github.GitHub(githubToken);
 
+
     const headBranchMetadata = await octokit.repos.getBranch({
       owner: context.repo.owner,
       repo: context.repo.owner,
