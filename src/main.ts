@@ -3,28 +3,30 @@ import * as github from '@actions/github';
 import Octokit = require('@octokit/rest');
 
 async function run() {
-  try {
-    const context = github.context;
-    const githubToken = core.getInput('GITHUB_TOKEN');
-    const baseBranch = core.getInput('BASE_BRANCH');
-    const headBranch = core.getInput('HEAD_BRANCH');
-    let prTitle = core.getInput('PULL_REQUEST_TITLE');
+  const context = github.context;
+  const githubToken = core.getInput('GITHUB_TOKEN');
+  const baseBranch = core.getInput('BASE_BRANCH');
+  const headBranch = core.getInput('HEAD_BRANCH');
+  let prTitle = core.getInput('PULL_REQUEST_TITLE');
 
+  try {
     if (!prTitle || prTitle.length === 0) {
       prTitle = `[Bot] Automatic PR from ${headBranch} => ${baseBranch}`;
     }
 
     const octokit = new github.GitHub(githubToken);
 
+    core.debug(`loading "${headBranch}"`);
     const headBranchMetadata = await octokit.repos.getBranch({
       owner: context.repo.owner,
-      repo: context.repo.owner,
+      repo: context.repo.repo,
       branch: headBranch
     });
 
+    core.debug(`loading "${baseBranch}"`);
     const baseBranchMetadata = await octokit.repos.getBranch({
       owner: context.repo.owner,
-      repo: context.repo.owner,
+      repo: context.repo.repo,
       branch: baseBranch
     });
 
@@ -32,7 +34,7 @@ async function run() {
       core.info('source and target branches are in sync, skipping PR.');
       return;
     }
-    
+
     const existingPulls = await octokit.pulls.list({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -66,10 +68,20 @@ async function run() {
 
   } catch (error) {
     core.debug(JSON.stringify(error));
-    if ((error.message as string).indexOf('pull request already exists') >= 0) {
-      core.info('Found an existing open pull request, cancelling.');
-      return;
+    const messageString = error.message as string;
+    if (!!messageString) {
+      if (messageString.indexOf('pull request already exists') >= 0) {
+        core.info('Found an existing open pull request, cancelling.');
+        return;
+      }
+
+      if (messageString.indexOf('No commits between') >= 0) {
+        core.info(`${baseBranch} already has all commits in ${headBranch}`);
+        return;
+      }
     }
+
+
     core.setFailed(error.message);
   }
 }
