@@ -20,11 +20,13 @@ async function run() {
       owner: context.repo.owner,
       repo: context.repo.repo,
       state: 'open',
-      base: pullRequestBranch
+      base: pullRequestBranch,
+      head: `${context.repo.owner}:${sourceBranch}`
     });
 
     if (existingPulls.data.length > 0) {
       core.debug('Found an existing open pull request, cancelling.');
+      return;
     }
 
     const pr: (Octokit.RequestOptions & Octokit.PullsCreateParams) = {
@@ -41,6 +43,10 @@ async function run() {
     core.info(`Created a new PR: ${createdPr.data.html_url}`);
 
   } catch (error) {
+    if ((error.message as string).indexOf('pull request already exists') >= 0) {
+      core.info('Found an existing open pull request, cancelling.');
+      return;
+    }
     core.setFailed(error.message);
   }
 }
