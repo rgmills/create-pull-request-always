@@ -24,6 +24,8 @@ async function run() {
       head: `${context.repo.owner}:${sourceBranch}`
     });
 
+    core.debug(JSON.stringify(existingPulls));
+
     if (existingPulls.data.length > 0) {
       core.debug('Found an existing open pull request, cancelling.');
       return;
@@ -43,6 +45,7 @@ async function run() {
     core.info(`Created a new PR: ${createdPr.data.html_url}`);
 
   } catch (error) {
+    core.debug(JSON.stringify(error));
     if ((error.message as string).indexOf('pull request already exists') >= 0) {
       core.info('Found an existing open pull request, cancelling.');
       return;
