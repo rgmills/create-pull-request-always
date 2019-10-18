@@ -5,12 +5,15 @@ inputs:
   GITHUB_TOKEN:
     description: 'GitHub access token'
     default: ''
-  PULL_REQUEST_BRANCH:
-    description: 'Target branch for the pull request'
+  BASE_BRANCH:
+    description: 'Base (target) branch for the pull request'
     default: 'master'
-  SOURCE_BRANCH:
-    description: 'Source branch for the pull request'
+  HEAD_BRANCH:
+    description: 'Head (source) branch for the pull request'
     default: 'release'
+  PULL_REQUEST_TITLE:
+    description: 'Title for the PR.  By default it''ll be in the form: [Bot] Automatic PR from ${headBranch} => ${baseBranch}'
+    default: ''
 runs:
   using: 'node12'
   main: 'lib/main.js'
