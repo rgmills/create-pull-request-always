@@ -10,7 +10,7 @@ inputs:
     default: 'master'
   HEAD_BRANCH:
     description: 'Head (source) branch for the pull request'
-    default: 'release'
+    default: ''
   PULL_REQUEST_TITLE:
     description: 'Title for the PR.  By default it''ll be in the form: [Bot] Automatic PR from ${headBranch} => ${baseBranch}'
     default: ''
