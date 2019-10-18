@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: rgmills/create-pull-request-always@v0.1
+    - uses: rgmills/create-pull-request-always@v0.2
       with:
         GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         PULL_REQUEST_BRANCH: 'master'
