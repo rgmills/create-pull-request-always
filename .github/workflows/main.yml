@@ -11,6 +11,6 @@ jobs:
     - uses: rgmills/create-pull-request-always@v0.3.1
       with:
         GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        PULL_REQUEST_BRANCH: 'master'
-        SOURCE_BRANCH: 'releases/v0.1'
+        BASE_BRANCH: 'master'
+        HEAD_BRANCH: 'releases/v0.1'
         PULL_REQUEST_TITLE: 'Test'
